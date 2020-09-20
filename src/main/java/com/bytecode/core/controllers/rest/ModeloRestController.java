@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bytecode.core.modelo.Modelo;
+import com.bytecode.core.modelo.Operacion;
 import com.bytecode.core.modelo.common.RepBase;
 import com.bytecode.core.repositorio.ModeloRepositorio;
 
@@ -30,6 +31,11 @@ public class ModeloRestController {
 	public ResponseEntity<List<Modelo>> getAll(SpringDataWebProperties.Pageable pageable){
 		
 		return ResponseEntity.ok(modeloRepositorio.getAll(pageable));	
+	}
+	
+	@GetMapping("/{id}/operaciones")
+	public ResponseEntity<List<Operacion>> operaciones(@PathVariable int id){
+		return ResponseEntity.ok(modeloRepositorio.operaciones(id));
 	}
 	
 	@GetMapping("/{id}")

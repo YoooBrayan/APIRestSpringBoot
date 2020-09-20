@@ -11,7 +11,9 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.bytecode.core.mapper.ModeloMapper;
+import com.bytecode.core.mapper.OperacionMapper;
 import com.bytecode.core.modelo.Modelo;
+import com.bytecode.core.modelo.Operacion;
 
 @Repository
 public class ModeloRepositorio implements IModelo {
@@ -48,6 +50,13 @@ public class ModeloRepositorio implements IModelo {
 
 		return jdbc.query("select * from modelo", new ModeloMapper());
 
+	}
+	
+	@Override
+	public List<Operacion> operaciones(int id){
+		
+		return jdbc.query("call operacionesModelo(?)", new Object[] {id}, new OperacionMapper());
+		
 	}
 
 	@Override

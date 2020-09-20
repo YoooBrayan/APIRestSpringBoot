@@ -21,53 +21,41 @@ import com.bytecode.core.repositorio.OperacionRepositorio;
 @RestController
 @RequestMapping("/api/v1/operacion")
 public class OperacionRestController {
-	
+
 	@Autowired
 	private OperacionRepositorio operacionRepository;
-	
+
 	@GetMapping
-	public ResponseEntity<List<Operacion>> getAll(SpringDataWebProperties.Pageable pageable){
-		
+	public ResponseEntity<List<Operacion>> getAll(SpringDataWebProperties.Pageable pageable) {
+
 		return ResponseEntity.ok(operacionRepository.getAll(pageable));
-		
+
 	}
-	
+
+	@GetMapping("/{id}")
+	public ResponseEntity<Operacion> getById(@PathVariable int id) {
+
+		return ResponseEntity.ok(operacionRepository.getById(id));
+
+	}
+
 	@PostMapping
-	public ResponseEntity save(@RequestBody Operacion operacion){
+	public ResponseEntity save(@RequestBody Operacion operacion) {
 
 		return ResponseEntity.ok(new RepBase(operacionRepository.save(operacion)));
 	}
-	
+
 	@DeleteMapping("/{id}")
 	public ResponseEntity delete(@PathVariable int id) {
-		
-		if(operacionRepository.getById(id) != null) {
-			
+
+		if (operacionRepository.getById(id) != null) {
+
 			return ResponseEntity.ok(new RepBase(operacionRepository.delete(id)));
-			
-		}else {
+
+		} else {
 			return new ResponseEntity(null, HttpStatus.NOT_FOUND);
 		}
-		
-	}
-	
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	}
+
 }
