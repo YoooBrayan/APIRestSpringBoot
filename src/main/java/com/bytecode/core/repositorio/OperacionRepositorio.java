@@ -91,4 +91,9 @@ public class OperacionRepositorio implements IOperacion {
 		return jdbc.query("select * from operacion where operacion_descripcion like ?", new Object[]{filtro}, new OperacionMapper());
 		
 	}
+	
+	@Override
+	public int getLastId() {
+		return jdbc.queryForObject("select operacion_id from operacion order by operacion_id desc limit 1", Integer.class);
+	}
 }

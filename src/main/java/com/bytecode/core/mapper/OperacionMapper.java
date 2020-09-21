@@ -13,9 +13,9 @@ public class OperacionMapper implements RowMapper<Operacion>{
 	public Operacion mapRow(ResultSet rs, int rowNum) throws SQLException {
 	
 		Operacion operacion = new Operacion();
-		operacion.setId(rs.getInt("Operacion_id"));
-		operacion.setDescripcion(rs.getString("Operacion_Descripcion"));
-		operacion.setValor(rs.getInt("operacion_valor"));
+		operacion.setId(rs.getInt(1));
+		operacion.setDescripcion(rs.getString(2));
+		operacion.setValor(rs.getInt(3));
 		
 		return operacion;
 	}

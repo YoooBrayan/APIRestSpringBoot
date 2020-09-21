@@ -55,7 +55,7 @@ public class ModeloRepositorio implements IModelo {
 	@Override
 	public List<Operacion> operaciones(int id){
 		
-		return jdbc.query("call operacionesModelo(?)", new Object[] {id}, new OperacionMapper());
+		return jdbc.query("call operacionesModeloE(?)", new Object[] {id}, new OperacionMapper());
 		
 	}
 

@@ -38,6 +38,11 @@ public class OperacionRestController {
 		return ResponseEntity.ok(operacionRepository.getById(id));
 
 	}
+	
+	@GetMapping("/lastId")
+	public ResponseEntity<Integer> getLastId() {
+		return ResponseEntity.ok(operacionRepository.getLastId());
+	}
 
 	@PostMapping
 	public ResponseEntity save(@RequestBody Operacion operacion) {
