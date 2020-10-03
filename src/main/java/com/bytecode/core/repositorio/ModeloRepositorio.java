@@ -48,7 +48,7 @@ public class ModeloRepositorio implements IModelo {
 	@Override
 	public List<Modelo> getAll(Pageable pageable) {
 
-		return jdbc.query("select * from modelo", new ModeloMapper());
+		return jdbc.query("select * from modelo order by modelo_nombre", new ModeloMapper());
 
 	}
 	
@@ -86,9 +86,11 @@ public class ModeloRepositorio implements IModelo {
 	public boolean delete(int id) {
 
 		try {
-			
-			String sql = String.format("delete from modelo where modelo_id = '%d'", id);
+
+			String sql = String.format("delete from modelo_operacion where modelo_id = '%d'", id);
 			jdbc.execute(sql);
+			String sql2 = String.format("delete from modelo where modelo_id = '%d'", id);
+			jdbc.execute(sql2);
 			return true;
 		}catch(Exception e){
 			System.out.println(e);
