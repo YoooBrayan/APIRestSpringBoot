@@ -70,6 +70,17 @@ public class ModeloRepositorio implements IModelo {
 		}
 	}
 
+	@Override
+	public Modelo getByIdAndName(int id, String name) {
+
+		try {
+			Object[] params = new Object[] {id, name};
+			return jdbc.queryForObject("select * from modelo where modelo_id = ? and modelo_nombre = ?", params, new ModeloMapper());
+		}catch (Exception e) {
+			return null;
+		}
+	}	
+	
 	@Override	
 	public boolean update(Modelo modelo) {
 		

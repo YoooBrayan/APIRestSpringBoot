@@ -10,4 +10,6 @@ public interface IModelo  extends BaseRepositorio<Modelo>{
 	public List<Modelo> buscarModelos(String filtro);
 	
 	public List<Operacion> operaciones(int id);
+	
+	public Modelo getByIdAndName(int id, String name);
 }

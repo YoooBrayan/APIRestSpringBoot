@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bytecode.core.modelo.Modelo;
@@ -42,8 +43,8 @@ public class ModeloRestController {
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<Modelo> getById(@PathVariable int id){
-		return ResponseEntity.ok(modeloRepositorio.getById(id));
+	public ResponseEntity getById(@PathVariable int id){
+		return new ResponseEntity<>(modeloRepositorio.getById(id), (modeloRepositorio.getById(id).equals(null)?HttpStatus.NOT_FOUND:HttpStatus.OK));	
 	}
 	
 	@GetMapping("/filter/{filtro}")
@@ -53,8 +54,12 @@ public class ModeloRestController {
 	
 	@PostMapping
 	public ResponseEntity save(@RequestBody Modelo modelo){
-		
-		return ResponseEntity.ok(new RepBase(modeloRepositorio.save(modelo)));
+			
+		boolean status = modeloRepositorio.save(modelo);
+		if(status) {
+			return new ResponseEntity(HttpStatus.CREATED);			
+		}
+		return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
 	@PutMapping
@@ -72,6 +77,11 @@ public class ModeloRestController {
 		}
 		
 		
+	}
+	
+	@GetMapping("/params")
+	public ResponseEntity<Modelo> getParams(@RequestParam(name = "id") int idModelo, @RequestParam String modelo){
+		return ResponseEntity.ok(modeloRepositorio.getByIdAndName(idModelo, modelo));
 	}
 	 
 

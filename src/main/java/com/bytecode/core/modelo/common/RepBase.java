@@ -13,7 +13,7 @@ public class RepBase {
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
 	private Date timestamp = new Date();
 	
-	private Object response;
+		private Object response;
 	
 	public RepBase(Object response) {
 		this.response = response;
