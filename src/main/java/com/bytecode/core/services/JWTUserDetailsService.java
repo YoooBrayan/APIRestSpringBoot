@@ -12,12 +12,12 @@ import org.springframework.stereotype.Service;
 public class JWTUserDetailsService implements UserDetailsService {
 
 	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		if ("yooo".equals(username)) {
-			return new User("yooo", "$2a$10$K2Kdvx5jun0pQjygwBbTIuXbSdH77aa9naFtUQQ7YGhGHvwQJeMXS",
+	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+		if ("yooo@gmail.com".equals(email)) {
+			return new User("yooo@gmail.com", "$2a$10$K2Kdvx5jun0pQjygwBbTIuXbSdH77aa9naFtUQQ7YGhGHvwQJeMXS",
 					new ArrayList<>());
 		} else {
-			throw new UsernameNotFoundException("User not found with username: " + username);
+			throw new UsernameNotFoundException("User not found with email: " + email);
 		}
 	}
 }

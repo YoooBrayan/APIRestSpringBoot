@@ -23,7 +23,7 @@ import com.bytecode.core.modelo.JwtRequest;
 import com.bytecode.core.modelo.JwtResponse;
 
 @RestController
-@CrossOrigin
+@CrossOrigin(origins = "*", methods= {RequestMethod.GET,RequestMethod.POST, RequestMethod.DELETE, RequestMethod.PUT})
 @RequestMapping("/api/v1/authenticate")
 public class JwtAuthenticationController {
 
@@ -39,20 +39,21 @@ public class JwtAuthenticationController {
 	@PostMapping
 	public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
 
-		System.out.println(authenticationRequest);
-		authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
+		System.out.println(authenticationRequest.getEmail());
+		authenticate(authenticationRequest.getEmail(), authenticationRequest.getPassword());
 
 		final UserDetails userDetails = userDetailsService
-				.loadUserByUsername(authenticationRequest.getUsername());
+				.loadUserByUsername(authenticationRequest.getEmail());
 
 		final String token = jwtTokenUtil.generateToken(userDetails);
 
+		System.out.println("Token; " + token);
 		return ResponseEntity.ok(new JwtResponse(token));
 	}
 
-	private void authenticate(String username, String password) throws Exception {
+	private void authenticate(String email, String password) throws Exception {
 		try {
-			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, password));
 		} catch (DisabledException e) {
 			throw new Exception("USER_DISABLED", e);
 		} catch (BadCredentialsException e) {
