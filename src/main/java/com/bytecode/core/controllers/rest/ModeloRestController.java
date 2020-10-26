@@ -34,7 +34,7 @@ public class ModeloRestController {
 	@GetMapping
 	public ResponseEntity<List<Modelo>> getAll(SpringDataWebProperties.Pageable pageable){
 		
-		return ResponseEntity.ok(modeloRepositorio.getAll(pageable));	
+		return new ResponseEntity(modeloRepositorio.getAll(pageable), HttpStatus.OK);
 	}
 	
 	@GetMapping("/{id}/operaciones")
